@@ -1,6 +1,6 @@
-import { sdk } from "@farcaster/frame-sdk";
-import { useEffect } from "react";
-import { useAccount, useConnect, useSignMessage } from "wagmi";
+import { sdk } from '@farcaster/frame-sdk';
+import { useEffect } from 'react';
+import { useAccount, useConnect, useSignMessage } from 'wagmi';
 
 function App() {
   useEffect(() => {
@@ -8,8 +8,8 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8">
-      <div className="max-w-2xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gray-900 p-8 text-white">
+      <div className="mx-auto max-w-2xl space-y-8">
         <h1 className="text-3xl font-bold">Mini App + Vite + TS + React + Wagmi</h1>
         <ConnectMenu />
       </div>
@@ -29,7 +29,7 @@ function ConnectMenu() {
     return (
       <div className="space-y-4">
         <div className="text-lg">Connected account:</div>
-        <div className="font-mono bg-gray-800 p-3 rounded-lg">{address}</div>
+        <div className="rounded-lg bg-gray-800 p-3 font-mono">{address}</div>
         <SignButton />
       </div>
     );
@@ -39,7 +39,7 @@ function ConnectMenu() {
     <button
       type="button"
       onClick={handleConnect}
-      className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+      className="rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-700"
     >
       Connect
     </button>
@@ -53,16 +53,16 @@ function SignButton() {
     <div className="space-y-4">
       <button
         type="button"
-        onClick={() => signMessage({ message: "hello world" })}
+        onClick={() => signMessage({ message: 'hello world' })}
         disabled={isPending}
-        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isPending ? "Signing..." : "Sign message"}
+        {isPending ? 'Signing...' : 'Sign message'}
       </button>
       {data && (
         <div className="space-y-2">
           <div className="text-lg">Signature</div>
-          <div className="font-mono bg-gray-800 p-3 rounded-lg break-all">{data}</div>
+          <div className="rounded-lg bg-gray-800 p-3 font-mono break-all">{data}</div>
         </div>
       )}
       {error && (

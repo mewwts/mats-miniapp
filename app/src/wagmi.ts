@@ -1,6 +1,6 @@
-import { farcasterFrame } from "@farcaster/frame-wagmi-connector";
-import { http, createConfig } from "wagmi";
-import { base, mainnet } from "wagmi/chains";
+import { farcasterFrame } from '@farcaster/frame-wagmi-connector';
+import { http, createConfig } from 'wagmi';
+import { base, mainnet } from 'wagmi/chains';
 
 export const config = createConfig({
   chains: [base, mainnet],
@@ -11,7 +11,7 @@ export const config = createConfig({
   },
 });
 
-declare module "wagmi" {
+declare module 'wagmi' {
   interface Register {
     config: typeof config;
   }
