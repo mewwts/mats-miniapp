@@ -1,6 +1,6 @@
-import { sdk } from '@farcaster/frame-sdk';
-import { useEffect } from 'react';
-import { useAccount, useConnect, useSignMessage } from 'wagmi';
+import { sdk } from "@farcaster/frame-sdk";
+import { useEffect } from "react";
+import { useAccount, useConnect, useSignMessage } from "wagmi";
 
 function App() {
   useEffect(() => {
@@ -53,11 +53,11 @@ function SignButton() {
     <div className="space-y-4">
       <button
         type="button"
-        onClick={() => signMessage({ message: 'hello world' })}
+        onClick={() => signMessage({ message: "hello world" })}
         disabled={isPending}
         className="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isPending ? 'Signing...' : 'Sign message'}
+        {isPending ? "Signing..." : "Sign message"}
       </button>
       {data && (
         <div className="space-y-2">
