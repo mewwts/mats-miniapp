@@ -8,9 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Dependencies
-node_modules
-dist
-dist-ssr
+app/node_modules
+app/dist
+app/dist-ssr
 *.local
 
 # Editor directories and files
@@ -25,6 +25,6 @@ dist-ssr
 *.sw?
 
 # Environment variables
-.env
-.env.*
-!.env.example
+app/.env
+app/.env.*
+!app/.env.example

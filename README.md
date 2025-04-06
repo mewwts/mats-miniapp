@@ -1,4 +1,43 @@
-This is a [Vite](https://vitejs.dev) project bootstrapped with [`@farcaster/create-mini-app`](https://github.com/farcasterxyz/frames/tree/main/packages/create-mini-app).
+# Mini App
+
+A React + Vite + TypeScript application with Tailwind CSS.
+
+## Project Structure
+
+```
+.
+├── app/               # Application code
+│   ├── src/          # Source files
+│   ├── public/       # Static assets
+│   └── ...          # Configuration files
+└── .git/             # Git repository
+```
+
+## Getting Started
+
+1. Navigate to the app directory:
+   ```bash
+   cd app
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+## Available Scripts
+
+All scripts should be run from the `app` directory:
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+- `pnpm lint` - Run linter
 
 ## `farcaster.json`
 
