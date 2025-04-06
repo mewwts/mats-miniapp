@@ -18,3 +18,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: app
+          command: deploy functions/src/index.ts
