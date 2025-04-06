@@ -1,0 +1,18 @@
+name = "miniapp-api"
+main = "./functions/src/index.ts"
+compatibility_date = "2024-04-06"
+
+[dev]
+port = 8787
+
+[triggers]
+crons = ["0 0 * * *"]  # Run at midnight UTC every day
+
+[[d1_databases]]
+binding = "DB" 
+database_name = "dev"
+database_id = "f5adde9f-e099-4de7-8e41-d5f9c24acf93"
+
+# Add your environment variables here
+# [vars]
+# MY_VARIABLE = "value" 

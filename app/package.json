@@ -9,7 +9,13 @@
     "lint": "biome check src",
     "preview": "vite preview",
     "format": "biome format --write src",
-    "format:check": "biome format src"
+    "format:check": "biome format src",
+    "worker:dev": "wrangler dev functions/src/index.ts",
+    "worker:deploy": "wrangler deploy functions/src/index.ts",
+    "db:migrate": "wrangler d1 execute dev --file=functions/migrations/0000_init.sql",
+    "db:seed": "wrangler d1 execute dev --file=functions/migrations/seed.sql",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@farcaster/frame-sdk": "latest",
@@ -22,13 +28,17 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.0",
+    "@cloudflare/workers-types": "^4.20240208.0",
     "@tailwindcss/vite": "^4.1.3",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^1.3.1",
     "@wagmi/cli": "latest",
     "tailwindcss": "^4.1.3",
     "typescript": "^5.4.5",
-    "vite": "^5.2.11"
+    "vite": "^5.2.11",
+    "vitest": "^1.3.1",
+    "wrangler": "^3.28.1"
   }
 }
