@@ -1,64 +1,100 @@
-# Mini App
+# Sudoku Generator API
 
-A React + Vite + TypeScript application with Tailwind CSS.
+A Cloudflare Worker that generates Sudoku puzzles using Peter Norvig's algorithm.
 
-## Project Structure
+## Features
+
+- Generates valid Sudoku puzzles with unique solutions
+- Supports three difficulty levels (1: Easy, 2: Medium, 3: Hard)
+- Uses constraint propagation for efficient solving
+- Daily generation of puzzles via a cron job
+- Puzzles are stored in Cloudflare D1 database
+
+## API Endpoints
+
+### Get a Sudoku puzzle
 
 ```
-.
-├── app/               # Application code
-│   ├── src/          # Source files
-│   ├── public/       # Static assets
-│   └── ...          # Configuration files
-└── .git/             # Git repository
+GET /api/sudoku?date=2024-04-06&difficulty=1
 ```
 
-## Getting Started
+Parameters:
+- `date` (optional): The date for which to get the puzzle (format: YYYY-MM-DD). Defaults to today.
+- `difficulty` (optional): The difficulty level (1-3). Defaults to 1 (Easy).
 
-1. Navigate to the app directory:
+Response:
+```json
+{
+  "date": "2024-04-06",
+  "difficulty": 1,
+  "puzzle": [[0, 5, 0, 1, 6, 0, 0, 0, 0], ...],
+  "solution": [[8, 5, 4, 1, 6, 2, 3, 9, 7], ...]
+}
+```
 
-   ```bash
-   cd app
-   ```
+## Development
 
+### Prerequisites
+
+- Node.js 18+
+- pnpm
+
+### Setup
+
+1. Clone the repository
 2. Install dependencies:
-
-   ```bash
+   ```
+   cd app
    pnpm install
    ```
-
-3. Start the development server:
-   ```bash
-   pnpm dev
+3. Run the development server:
+   ```
+   pnpm worker:dev
    ```
 
-## Available Scripts
+### Testing
 
-All scripts should be run from the `app` directory:
-
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm preview` - Preview production build
-- `pnpm lint` - Run linter
-
-## `farcaster.json`
-
-The `/.well-known/farcaster.json` is served from the [public
-directory](https://vite.dev/guide/assets) and can be updated by editing
-`./public/.well-known/farcaster.json`.
-
-You can also use the `public` directory to serve a static image for `splashBackgroundImageUrl`.
-
-## Frame Embed
-
-Add a the `fc:frame` in `index.html` to make your root app URL sharable in feeds:
-
-```html
-<head>
-  <!--- other tags --->
-  <meta
-    name="fc:frame"
-    content='{"version":"next","imageUrl":"https://placehold.co/900x600.png?text=Frame%20Image","button":{"title":"Open","action":{"type":"launch_frame","name":"App Name","url":"https://app.com"}}}'
-  />
-</head>
+Run the tests:
 ```
+pnpm test
+```
+
+## Deployment
+
+### Manual Deployment
+
+To deploy manually:
+
+```
+cd app
+pnpm worker:deploy
+```
+
+### Automatic Deployment
+
+The project is set up to automatically deploy to Cloudflare Workers when you push to the main branch.
+
+#### Setting up GitHub Actions
+
+1. Create a Cloudflare API token:
+   - Go to the Cloudflare dashboard
+   - Navigate to "My Profile" > "API Tokens"
+   - Click "Create Token"
+   - Select "Edit Cloudflare Workers" template
+   - Give it a name and create the token
+
+2. Add the token to your GitHub repository:
+   - Go to your GitHub repository
+   - Navigate to "Settings" > "Secrets and variables" > "Actions"
+   - Click "New repository secret"
+   - Name: `CLOUDFLARE_API_TOKEN`
+   - Value: Your Cloudflare API token
+   - Click "Add secret"
+
+Now, every time you push to the main branch, GitHub Actions will:
+1. Run the tests
+2. Deploy the Worker to Cloudflare if tests pass
+
+## License
+
+MIT

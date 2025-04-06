@@ -1,17 +1,16 @@
 name = "miniapp-api"
-main = "./functions/src/index.ts"
+main = "functions/src/index.ts"
 compatibility_date = "2024-04-06"
 
-[dev]
-port = 8787
-
-[triggers]
-crons = ["0 0 * * *"]  # Run at midnight UTC every day
-
+# D1 Database
 [[d1_databases]]
-binding = "DB" 
+binding = "DB"
 database_name = "dev"
 database_id = "f5adde9f-e099-4de7-8e41-d5f9c24acf93"
+
+# Cron trigger for daily puzzle generation
+[triggers]
+crons = ["0 0 * * *"]  # Run at midnight UTC every day
 
 # Add your environment variables here
 # [vars]
