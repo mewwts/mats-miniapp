@@ -181,24 +181,22 @@ async function insertPuzzle(env: Env) {
   try {
     const today = new Date().toISOString().split('T')[0];
     
-    const HARD_DIFFICULTY = 3;
-    const { puzzle: hardPuzzle, solution: hardSolution } = generateSudoku(HARD_DIFFICULTY);
+    const { puzzle, solution } = generateSudoku();
     
-    if (!hardPuzzle || !hardSolution) {
+    if (!puzzle || !solution) {
       throw new Error('Failed to generate valid Sudoku puzzle');
     }
 
     const result = await env.DB.prepare(`
-      INSERT INTO sudoku_puzzles (date, puzzle, solution, difficulty)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO sudoku_puzzles (date, puzzle, solution)
+      VALUES (?, ?, ?)
       ON CONFLICT DO UPDATE SET
         puzzle = excluded.puzzle,
         solution = excluded.solution
     `).bind(
       today,
-      JSON.stringify(hardPuzzle),
-      JSON.stringify(hardSolution),
-      HARD_DIFFICULTY
+      JSON.stringify(puzzle),
+      JSON.stringify(solution)
     ).run();
 
     if (!result.success) {

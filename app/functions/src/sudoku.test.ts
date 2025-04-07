@@ -76,15 +76,7 @@ describe('Sudoku Generator', () => {
     let totalEmptyCells = 0;
     
     for (let i = 0; i < iterations; i++) {
-      const { puzzle, solution } = generateSudoku(1);
-      
-      // Only log the first solution as an example
-      if (i === 0) {
-        console.log('Example Solution:');
-        solution.forEach(row => console.log(row.join(' ')));
-        console.log('\nExample Puzzle:');
-        puzzle.forEach(row => console.log(row.join(' ')));
-      }
+      const { puzzle, solution } = generateSudoku();
       
       // Check that solution is valid and complete
       expect(isValidSudoku(solution)).toBe(true);
@@ -108,8 +100,8 @@ describe('Sudoku Generator', () => {
   });
   
   it('should generate different puzzles on each call', () => {
-    const { puzzle: puzzle1 } = generateSudoku(1);
-    const { puzzle: puzzle2 } = generateSudoku(1);
+    const { puzzle: puzzle1 } = generateSudoku();
+    const { puzzle: puzzle2 } = generateSudoku();
     
     // Convert to strings for comparison
     const puzzle1Str = JSON.stringify(puzzle1);
@@ -119,42 +111,8 @@ describe('Sudoku Generator', () => {
     expect(puzzle1Str).not.toBe(puzzle2Str);
   });
   
-  it('should generate puzzles with increasing difficulty', () => {
-    const { puzzle: easyPuzzle } = generateSudoku(1);
-    const { puzzle: mediumPuzzle } = generateSudoku(2);
-    const { puzzle: hardPuzzle } = generateSudoku(3);
-    
-    const easyEmptyCount = countEmptyCells(easyPuzzle);
-    const mediumEmptyCount = countEmptyCells(mediumPuzzle);
-    const hardEmptyCount = countEmptyCells(hardPuzzle);
-    
-    // Higher difficulty should have more empty cells
-    expect(easyEmptyCount).toBeLessThan(mediumEmptyCount);
-    expect(mediumEmptyCount).toBeLessThan(hardEmptyCount);
-  });
-  
-  it('should handle different difficulty levels', () => {
-    // Test all difficulty levels
-    for (let difficulty = 1; difficulty <= 3; difficulty++) {
-      const { puzzle, solution } = generateSudoku(difficulty);
-      
-      // Check that solution is valid and complete
-      expect(isValidSudoku(solution)).toBe(true);
-      expect(isComplete(solution)).toBe(true);
-      
-      // Check that puzzle is valid and a subset of solution
-      expect(isValidSudoku(puzzle)).toBe(true);
-      expect(isPuzzleSubsetOfSolution(puzzle, solution)).toBe(true);
-      
-      // Check that puzzle has the expected number of empty cells
-      const emptyCount = countEmptyCells(puzzle);
-      const expectedMinEmpty = Math.floor(81 * (0.3 + difficulty * 0.1));
-      expect(emptyCount).toBeGreaterThanOrEqual(expectedMinEmpty);
-    }
-  });
-  
   it('should generate puzzles with unique solutions', () => {
-    const { puzzle, solution } = generateSudoku(1);
+    const { puzzle, solution } = generateSudoku();
     
     // Check that the solution is valid and complete
     expect(isValidSudoku(solution)).toBe(true);

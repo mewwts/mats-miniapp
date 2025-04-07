@@ -162,7 +162,7 @@ function assign(candidates: Candidates, cell: string, value: number): boolean {
 }
 
 // Generate a random Sudoku puzzle
-export function generateSudoku(difficulty: number = 1): { puzzle: Grid; solution: Grid } {
+export function generateSudoku(): { puzzle: Grid; solution: Grid } {
   // Start with an empty grid
   const grid: Grid = Array(9).fill(0).map(() => Array(9).fill(0));
   
@@ -182,20 +182,20 @@ export function generateSudoku(difficulty: number = 1): { puzzle: Grid; solution
   const candidates = initializeCandidates(grid);
   if (candidates.size === 0 || !solveSudoku(candidates)) {
     // If solving fails, try again
-    return generateSudoku(difficulty);
+    return generateSudoku();
   }
   
   // Convert candidates back to grid
   const solution = gridFromCandidates(candidates);
   
   // Create puzzle by removing numbers
-  const puzzle = createPuzzle(solution, difficulty);
+  const puzzle = createPuzzle(solution);
   
   // Verify that the puzzle is valid and has a unique solution
   const puzzleCandidates = initializeCandidates(puzzle);
   if (puzzleCandidates.size === 0) {
     // If the puzzle is invalid, try again
-    return generateSudoku(difficulty);
+    return generateSudoku();
   }
   
   return { puzzle, solution };
@@ -254,7 +254,7 @@ function gridFromCandidates(candidates: Candidates): Grid {
 }
 
 // Create puzzle by removing numbers while maintaining uniqueness
-function createPuzzle(solution: Grid, difficulty: number): Grid {
+function createPuzzle(solution: Grid): Grid {
   const puzzle = solution.map(row => [...row]);
   const cells = Array.from({ length: 81 }, (_, i) => [Math.floor(i / 9), i % 9]);
   
@@ -264,8 +264,8 @@ function createPuzzle(solution: Grid, difficulty: number): Grid {
     [cells[i], cells[j]] = [cells[j], cells[i]];
   }
   
-  // Remove numbers based on difficulty while maintaining uniqueness
-  const targetEmpty = Math.floor(81 * (0.3 + difficulty * 0.1));
+  // Remove numbers while maintaining uniqueness
+  const targetEmpty = 50; // Hard difficulty: ~62% empty cells
   let emptyCells = 0;
   
   for (const [row, col] of cells) {

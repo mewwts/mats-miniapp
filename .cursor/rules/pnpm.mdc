@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Use pnpm, not npm, not npx, or anytyhing else when running commands
+Use pnpm, not npm, not npx, or anytyhing else when running commands
